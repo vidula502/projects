@@ -1,0 +1,38 @@
+body{
+    font-family: "Inter", sans-serif;
+    padding: 0;
+    margin: 0;
+    color: #222;
+}
+
+#productList{
+    margin-top: 2rem;
+}
+
+
+
+.alldataFlex{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -1rem;
+    margin-right: -1rem;
+}
+
+.alldata{
+    flex: 1 1 auto;
+    margin: 1rem;
+    border: 1px solid #272727;
+    padding: 1rem;
+}
+.alldata h3{
+    font-size: 1rem;
+    font-weight: normal;;
+}
+.alldata strong{
+    font-weight: 500;
+    color: chocolate;
+}
+.productDivision h1{
+    text-transform: capitalize;
+    font-size: 28px;
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product API Integration</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="page-Title">Product API Integration</h1>
+      <div id="productList"></div>
+    </div>
+
+    <script>
+      // Function to fetch product data from the API
+      function fetchProducts() {
+        // Define the API endpoint URL for fetching products
+        const apiUrl = "https://www.gov.uk/bank-holidays.json";
+
+        // Make a GET request to the API endpoint
+        fetch(apiUrl)
+          .then((response) => {
+            // Check if the response is successful (status code 200)
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            // Parse the JSON response
+            return response.json();
+          })
+          .then((products) => {
+                //console.log(products);
+            //     console.log(typeof products);
+            //     const dataArray = [];
+
+            //  // Iterate over the keys and push their corresponding values into the array
+            //     for (const key in products) {
+            //          if (Object.hasOwnProperty.call(products, key)) {
+            //             dataArray.push(products[key]);
+            //         }
+            //      }
+                console.log(products)
+                displayProducts(products);
+          })
+          .catch((error) => {
+            // Handle any errors that occurred during the fetch
+            console.error(
+              "There was a problem with your fetch operation:",
+              error
+            );
+          });
+      }
+
+      // Function to display products on the HTML page
+      function displayProducts(data) {
+        const productListDiv = document.getElementById("productList");
+        // Clear the existing content
+        productListDiv.innerHTML = "";
+        // Iterate through the products and create HTML elements to display them
+        // products.forEach((product) => {
+        //   // console.log(product);
+        //   const productElement = document.createElement("div");
+        //   productElement.innerHTML = `
+        //             <h3>${product.division}</h3>
+        //             <hr>
+        //         `;
+                
+        //   productListDiv.appendChild(productElement);
+        // });
+
+        for (const division in data) {
+          const productDivision = document.createElement("div");
+          productDivision.className = 'productDivision'
+          const alldataFlex = document.createElement("div");
+          alldataFlex.className = 'alldataFlex';
+          productDivision.innerHTML = `<h1>${division}</h1>`;
+          const events = data[division].events;
+
+          productDivision.appendChild(alldataFlex);
+         
+  // Iterate through the 'events' array using forEach
+          events.forEach(event => {
+            console.log(event);
+            const alldata = document.createElement("div");
+            alldata.className = 'alldata';
+            alldata.innerHTML = `
+                <div class='row'>
+                    <div class='col-4'><strong>Title</strong></div>
+                    <div class='col-8'>${event.title}</div>
+                </div>
+                <div class='row'>
+                    <div class='col-4'><strong>Date</strong></div>
+                    <div class='col-8'>${event.date}</div>
+                </div>
+                <div class='row'>
+                    <div class='col-4'><strong>Bunting</strong></div>
+                    <div class='col-8'>${event.bunting}</div>
+                </div>
+            `
+            // console.log(alldata);
+            alldataFlex.appendChild(alldata);
+          });
+          productListDiv.appendChild(productDivision);
+        }
+
+      }
+      fetchProducts();
+      // Add event listener to the button
+      // document
+      //   .getElementById("getProductsBtn")
+      //   .addEventListener("click", fetchProducts);
+    </script>
+  </body>
+</html>
